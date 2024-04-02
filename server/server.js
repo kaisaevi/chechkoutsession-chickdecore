@@ -1,5 +1,6 @@
 const express = require("express");
 const cookieSession = require("cookie-session");
+const cors = require("cors");
 
 const userRouter = require("./resources/users/users.router");
 const authRouter = require("./resources/auth/auth.router");
@@ -13,6 +14,7 @@ app.use(
     maxAge: 1000 * 60 * 60, //Cookiesession lasts 1 hour
   })
 );
+app.use(cors());
 
 //Routes
 app.use("/api/users", userRouter);
