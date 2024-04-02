@@ -6,7 +6,7 @@ const fs = require("fs").promises;
 const register = async (req, res) => {
   const { email, password } = req.body;
 
-  // kolla så att användaren redan inte finns
+  // kolla så att användaren inte redan finns
   const users = await fetchUsers();
   const userAlreadyExists = users.find((user) => user.email === email);
 
@@ -26,7 +26,39 @@ const register = async (req, res) => {
   await fs.writeFile("./data/users.json", JSON.stringify(users, null, 2));
 
   //skicka tillbaka ett svar
-  res.status(201).json(newUser);
+  res.status(201).json(newUser.email);
 };
 
-module.exports = { register };
+const logIn = async (req, res) => {
+  //kontrollera att användaren finns
+  const { email, password } = req.body;
+
+  const users = await fetchUsers();
+  const userExists = users.find((user) => user.email === email);
+
+  //kontrollera att lösenordet stämmer och att användaren finns
+
+  if (!userExists || !(await bcrypt.compare(password, userExists.password))) {
+    return res.status(400).json("User doesn't exists or wrong password");
+  }
+
+  //skapa en session
+  req.session.user = userExists;
+
+  //skicka tillbaka ett svar
+  res.status(200).json(userExists.email);
+};
+
+const logOut = (req, res) => {
+  req.session = null;
+  res.status(200).json("Successfully logged out");
+};
+
+const authorize = (req, res) => {
+  if (!req.session.user) {
+    return res.status(401).json("You are not logged in");
+  }
+  res.status(200).json(req.session.user.email);
+};
+
+module.exports = { register, logIn, logOut, authorize };
