@@ -1,12 +1,12 @@
-import AddToCardButton from "./AddToCardButton";
+import AddToCartButton from "./AddToCartButton";
 
 const Products = () => {
   return (
     <>
       <div>
         <ul>
-          <li>produkt visas här</li>
-          <AddToCardButton />
+          <li>produkter visas här</li>
+          <AddToCartButton />
         </ul>
       </div>
     </>
