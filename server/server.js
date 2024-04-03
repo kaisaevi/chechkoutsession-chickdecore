@@ -4,6 +4,9 @@ const cors = require("cors");
 
 const userRouter = require("./resources/users/users.router");
 const authRouter = require("./resources/auth/auth.router");
+const stripeRouter = require("./resources/stripe/stripe.router");
+const cors = require("cors");
+require("dotenv").config();
 
 const app = express();
 
@@ -14,6 +17,7 @@ app.use(
     maxAge: 1000 * 60 * 60, //Cookiesession lasts 1 hour
   })
 );
+app.use("/api/payments", stripeRouter);
 app.use(cors());
 
 //Routes
