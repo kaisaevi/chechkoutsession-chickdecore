@@ -1,7 +1,7 @@
 const AddToCartButton = () => {
   return (
     <>
-      <button>Add to Cart</button>
+      <button className="bg-stone-600">Add to Cart</button>
     </>
   );
 };

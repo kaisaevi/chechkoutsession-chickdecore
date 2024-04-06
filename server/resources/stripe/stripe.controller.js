@@ -1,9 +1,8 @@
-const initStripe = require("../../services/stripe.service");
+const { initStripe } = require("../../services/stripe.service");
 
 const createCheckoutSession = async (req, res) => {
   try {
-    const cart = req.body;
-    const cartItems = JSON.parse(cart.body);
+    const cartItems = req.body.cart;
     const stripe = initStripe();
 
     const session = await stripe.checkout.sessions.create({
@@ -25,4 +24,45 @@ const createCheckoutSession = async (req, res) => {
   }
 };
 
-module.exports = { createCheckoutSession };
+const verifySession = async (req, res) => {
+  const stripe = initStripe();
+
+  const sessionId = req.body.sessionId;
+
+  const session = await stripe.session.retrieve(sessionId);
+
+  if (session.payment_status === "paid") {
+    const lineItems = await stripe.checkout.sessions.listLineItems(sessionId);
+    console.log(lineItems);
+
+    const order = {
+      orderNumber: Math.floor(Math.random() * 10000000),
+      customerName: session.customer_details.name,
+      products: "",
+      total: session.amount_total,
+      date: new Date(),
+    };
+    const orders = JSON.parse(await fs.readFile("../../data/orders.json"));
+    orders.push(order);
+    await fs.writeFile(
+      "../../data/orders.json",
+      JSOn.stringify(orders, null, 4)
+    );
+  }
+  console.log(session);
+  res.status(200).json({ verified: true });
+};
+
+//kesken
+const createCustomer = async (customer) => {
+  try {
+    const stripe = initStripe();
+    const response = await stripe.customers.create(customer);
+    return response;
+  } catch (error) {
+    console.error("Error creating customer:", error);
+    throw error;
+  }
+};
+
+module.exports = { createCheckoutSession, verifySession, createCustomer };

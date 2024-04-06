@@ -30,9 +30,9 @@ const register = async (req, res) => {
 };
 
 const logIn = async (req, res) => {
-  //kontrollera att användaren finns
   const { email, password } = req.body;
 
+  //kontrollera ifall användaren finns
   const users = await fetchUsers();
   const userExists = users.find((user) => user.email === email);
 

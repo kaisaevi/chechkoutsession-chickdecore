@@ -8,10 +8,4 @@ const initStripe = () => {
   });
 };
 
-const createCustomer = async (customer) => {
-  try {
-    const response = await Stripe.customers.create(customer);
-  } catch (error) {}
-};
-
 module.exports = { initStripe };
