@@ -1,9 +1,20 @@
 [
   {
-    "kaisa": "hejkaisa"
+    "name": "popopo",
+    "email": "popopo@gmail.com",
+    "password": "$2b$10$Z0luX/fURzTZ6Zio9/NpweE292YDz3LTD52GRhuAi..R2ItDTX62i",
+    "stripeCustomerId": "cus_PsQ79hratTiZcL"
   },
   {
+    "name": "kaisa",
     "email": "kaisa@gmail.com",
-    "password": "$2b$10$cOFTESnAqeggKVCy7Jpic.mOA8.z2UIummzuuoC1nbpRpePS/HYwa"
+    "password": "$2b$10$HMgcTtVbmaipz4pm8tvBI.Bi9L44LYtzDk3tAkgE7U.17CtPmC5Y.",
+    "stripeCustomerId": "cus_PsQ8Ef2lBju2fR"
+  },
+  {
+    "name": "reeta",
+    "email": "reeta@gmail.com",
+    "password": "$2b$10$6f6qQYdszUn5TtODsf.jpuD1riLrj84u7v9Y1oC33P8ruuNiiKz4i",
+    "stripeCustomerId": "cus_PsQC9wK0pcsSpn"
   }
 ]
