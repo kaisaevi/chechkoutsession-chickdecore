@@ -53,16 +53,4 @@ const verifySession = async (req, res) => {
   res.status(200).json({ verified: true });
 };
 
-//kesken
-const createCustomer = async (customer) => {
-  try {
-    const stripe = initStripe();
-    const response = await stripe.customers.create(customer);
-    return response;
-  } catch (error) {
-    console.error("Error creating customer:", error);
-    throw error;
-  }
-};
-
-module.exports = { createCheckoutSession, verifySession, createCustomer };
+module.exports = { createCheckoutSession, verifySession };

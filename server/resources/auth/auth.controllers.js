@@ -2,50 +2,60 @@ const fetchUsers = require("../../utils/fetchUsers");
 const { getUsers } = require("../users/users.controllers");
 const bcrypt = require("bcrypt");
 const fs = require("fs").promises;
+const { initStripe } = require("../../services/stripe.service");
 
 const register = async (req, res) => {
-  const { email, password } = req.body;
+  const { name, email, password } = req.body;
 
-  // kolla så att användaren inte redan finns
   const users = await fetchUsers();
   const userAlreadyExists = users.find((user) => user.email === email);
 
   if (userAlreadyExists) {
     return res.status(400).json("User already exists");
   }
-  // kryptera lösenordet
-  const hashedPassword = await bcrypt.hash(password, 10);
+  try {
+    const hashedPassword = await bcrypt.hash(password, 10);
 
-  //spara till databasen
-  const newUser = {
-    email,
-    password: hashedPassword,
-  };
-  users.push(newUser);
+    const stripe = initStripe();
+    const stripeCustomer = await stripe.customers.create({
+      name: name,
+      email: email,
+    });
 
-  await fs.writeFile("./data/users.json", JSON.stringify(users, null, 2));
+    const newUser = {
+      name,
+      email,
+      password: hashedPassword,
+      stripeCustomerId: stripeCustomer.id,
+    };
 
-  //skicka tillbaka ett svar
-  res.status(201).json(newUser.email);
+    users.push(newUser);
+    await fs.writeFile("./data/users.json", JSON.stringify(users, null, 2));
+
+    console.log("name is: ", name, email);
+    console.log("Stripe customer created:", stripeCustomer);
+
+    res.status(201).json(newUser.email);
+  } catch (error) {
+    console.error("Error registering user:", error);
+    res.status(500).json("Error registering user");
+  }
 };
+
+module.exports = register;
 
 const logIn = async (req, res) => {
   const { email, password } = req.body;
 
-  //kontrollera ifall användaren finns
   const users = await fetchUsers();
   const userExists = users.find((user) => user.email === email);
-
-  //kontrollera att lösenordet stämmer och att användaren finns
 
   if (!userExists || !(await bcrypt.compare(password, userExists.password))) {
     return res.status(400).json("User doesn't exists or wrong password");
   }
 
-  //skapa en session
   req.session.user = userExists;
 
-  //skicka tillbaka ett svar
   res.status(200).json(userExists.email);
 };
 

@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 
 const RegisterForm = () => {
+  const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
@@ -10,6 +11,7 @@ const RegisterForm = () => {
       const response = await axios.post(
         "http://localhost:3000/api/auth/register",
         {
+          name: name,
           email: email,
           password: password,
         },
@@ -27,6 +29,12 @@ const RegisterForm = () => {
 
   return (
     <div>
+      <input
+        type="name"
+        placeholder="Name"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+      />
       <input
         type="email"
         placeholder="E-postadress"
