@@ -1,14 +1,17 @@
 import { Outlet } from "react-router-dom";
-import Navbar from "../components/Navbar";
+import Header from "../components/Header";
+import CartProvider from "../context/CartContext";
 
 const Layout = () => {
   return (
     <div className="">
       <>
-        <Navbar />
-        <main className="bg-beige flex-grow">
-          <Outlet />
-        </main>
+        <CartProvider>
+          <Header />
+          <main className="bg-beige flex-grow">
+            <Outlet />
+          </main>
+        </CartProvider>
       </>
     </div>
   );

@@ -1,4 +1,4 @@
-// import Products from "../components/Products";
+import Products from "../components/Products";
 import Payment from "../components/Payment";
 import LoginForm from "../components/LoginForm";
 import RegisterForm from "../components/RegisterForm";
@@ -10,7 +10,7 @@ const HomePage = () => {
       <Payment />
       <LoginForm />
       <RegisterForm />
-      {/* <Products /> */}
+      <Products />
     </div>
   );
 };

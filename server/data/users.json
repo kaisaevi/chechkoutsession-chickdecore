@@ -16,5 +16,11 @@
     "email": "reeta@gmail.com",
     "password": "$2b$10$6f6qQYdszUn5TtODsf.jpuD1riLrj84u7v9Y1oC33P8ruuNiiKz4i",
     "stripeCustomerId": "cus_PsQC9wK0pcsSpn"
+  },
+  {
+    "name": "uit676767112312323123ti",
+    "email": "reet121233123hoiho@gmail.com",
+    "password": "$2b$10$0FBFdYYfX99jEPM7JpdTQ.4FJe8jtiVmpRcPgjcJs8BlS9LpCSvJa",
+    "stripeCustomerId": "cus_PshjmpPYs2SwbR"
   }
 ]

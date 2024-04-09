@@ -26,7 +26,7 @@ const createCheckoutSession = async (req, res) => {
 
 const verifySession = async (req, res) => {
   const stripe = initStripe();
-
+  //session.user.id??
   const sessionId = req.body.sessionId;
 
   const session = await stripe.session.retrieve(sessionId);

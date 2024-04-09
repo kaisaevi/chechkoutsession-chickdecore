@@ -10,6 +10,15 @@ const productRouter = require("./resources/products/product.router");
 
 const app = express();
 
+// Middleware för att logga förfrågningar
+const logRequests = (req, res, next) => {
+  console.log(`Received ${req.method} request for ${req.path}`);
+  next(); // Fortsätt till nästa middleware eller route-handler
+};
+
+// Använd logRequests-middleware för att logga förfrågningar
+app.use(logRequests);
+
 app.use(express.json());
 app.use(
   cookieSession({
