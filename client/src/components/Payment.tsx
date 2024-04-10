@@ -11,15 +11,10 @@ const Payment = () => {
         quantity: item.quantity,
       }));
 
-      console.log("!!!!!!!!products:", products);
-
       const response = await axios.post(
         "http://localhost:3000/api/payments/create-checkout-session",
         {
           cart: products.flatMap((product) => [product]),
-
-          // { product: "price_1P19lw2MTkrMoli5Dg2RpncV", quantity: 1 },
-          // { product: "price_1P19ZD2MTkrMoli5EPOgPK44", quantity: 3 },
         },
         {
           headers: {

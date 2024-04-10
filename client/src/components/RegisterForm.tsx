@@ -23,7 +23,6 @@ const RegisterForm = () => {
         }
       );
       console.log("Registration successful:", response.data);
-      setShowRegister(false);
     } catch (error) {
       console.error("Error registering:", error);
     }

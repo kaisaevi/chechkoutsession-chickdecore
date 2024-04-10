@@ -7,6 +7,7 @@ const userRouter = require("./resources/users/users.router");
 const authRouter = require("./resources/auth/auth.router");
 const stripeRouter = require("./resources/stripe/stripe.router");
 const productRouter = require("./resources/products/product.router");
+const orderRouter = require("./resources/orders/order.router");
 
 const app = express();
 
@@ -38,5 +39,6 @@ app.use("/api/users", userRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/payments", stripeRouter);
 app.use("/api/products", productRouter);
+app.use("/api/orders", orderRouter);
 
 app.listen(3000, () => console.log("Server is up and running...🚀"));

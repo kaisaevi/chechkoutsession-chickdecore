@@ -34,5 +34,11 @@
     "email": "hej123@hej.com",
     "password": "$2b$10$KRdx2y00pmLZ1hNXQ5XiNeRVjaWopvOJyKwKXe7xwKig.BbpFfWBi",
     "stripeCustomerId": "cus_PtRFQxtnc3f8GS"
+  },
+  {
+    "name": "123",
+    "email": "123@hotmail.com",
+    "password": "$2b$10$pkWJbsS7oJl8DPt8UU9hO.JvOrvDeX7.lnfXh2rWkkAwufk3hmk4i",
+    "stripeCustomerId": "cus_PtrRDMIbbmRi5g"
   }
 ]
