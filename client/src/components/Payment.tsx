@@ -1,15 +1,25 @@
 import axios from "axios";
+import { useCart } from "../context/CartContext";
 
 const Payment = () => {
+  const { cart } = useCart();
+
   const handlePayment = async () => {
     try {
+      const products = cart.map((item) => ({
+        product: item.product.default_price.id,
+        quantity: item.quantity,
+      }));
+
+      console.log("!!!!!!!!products:", products);
+
       const response = await axios.post(
         "http://localhost:3000/api/payments/create-checkout-session",
         {
-          cart: [
-            { product: "price_1P19lw2MTkrMoli5Dg2RpncV", quantity: 1 },
-            { product: "price_1P19ZD2MTkrMoli5EPOgPK44", quantity: 3 },
-          ],
+          cart: products.flatMap((product) => [product]),
+
+          // { product: "price_1P19lw2MTkrMoli5Dg2RpncV", quantity: 1 },
+          // { product: "price_1P19ZD2MTkrMoli5EPOgPK44", quantity: 3 },
         },
         {
           headers: {
@@ -29,8 +39,8 @@ const Payment = () => {
   };
   return (
     <div>
-      <button className="bg-slate-600" onClick={handlePayment}>
-        Pengar
+      <button className="bg-slate-600 border" onClick={handlePayment}>
+        Purchase Cart
       </button>
     </div>
   );

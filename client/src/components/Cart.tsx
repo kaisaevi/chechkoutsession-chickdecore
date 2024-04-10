@@ -1,6 +1,7 @@
 import { useCart } from "../context/CartContext";
 import { TiDelete } from "react-icons/ti";
 import { IoIosAddCircle } from "react-icons/io";
+import Payment from "./Payment";
 
 const Cart = () => {
   const { cart } = useCart();
@@ -60,6 +61,7 @@ const Cart = () => {
         })}
       </ul>
       <p className="text-xl font-bold">Total: {calculateTotalPrice()}</p>
+      <Payment />
     </div>
   );
 };

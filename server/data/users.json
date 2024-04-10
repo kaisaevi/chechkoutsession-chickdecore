@@ -22,5 +22,17 @@
     "email": "reet121233123hoiho@gmail.com",
     "password": "$2b$10$0FBFdYYfX99jEPM7JpdTQ.4FJe8jtiVmpRcPgjcJs8BlS9LpCSvJa",
     "stripeCustomerId": "cus_PshjmpPYs2SwbR"
+  },
+  {
+    "name": "Heli",
+    "email": "hej@hej.com",
+    "password": "$2b$10$KcgjOIaGHL.vgchwcDkiHuZE2UNeSpJZ6X2Gd16v.rT5m4Wl.TuoS",
+    "stripeCustomerId": "cus_PtRBzKKUJmhCNF"
+  },
+  {
+    "name": "Heli",
+    "email": "hej123@hej.com",
+    "password": "$2b$10$KRdx2y00pmLZ1hNXQ5XiNeRVjaWopvOJyKwKXe7xwKig.BbpFfWBi",
+    "stripeCustomerId": "cus_PtRFQxtnc3f8GS"
   }
 ]

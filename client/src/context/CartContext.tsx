@@ -13,6 +13,7 @@ export interface Product {
   images: string[];
   default_price: {
     unit_amount: number;
+    id: string;
   };
 }
 
@@ -25,7 +26,7 @@ interface ICartContext {
   cart: CartItem[];
   addToCart: (product: Product) => void;
   removeItemFromCart: (productId: string) => void;
-  removeProductFromCart: (productId: strin) => void;
+  removeProductFromCart: (productId: string) => void;
 }
 
 const initialValues = {
