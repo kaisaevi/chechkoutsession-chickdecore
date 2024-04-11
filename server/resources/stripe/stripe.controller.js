@@ -27,7 +27,6 @@ const createCheckoutSession = async (req, res) => {
 
 const verifySession = async (req, res) => {
   const stripe = initStripe();
-  //session.user.id??
   const sessionId = req.body.sessionId;
 
   const session = await stripe.checkout.sessions.retrieve(sessionId);
@@ -37,7 +36,9 @@ const verifySession = async (req, res) => {
 
     const order = {
       orderNumber: Math.floor(Math.random() * 10000000),
+      customerId: session.customer_details.id,
       customerName: session.customer_details.name,
+
       products: lineItems.data,
       total: session.amount_total,
       date: new Date(),

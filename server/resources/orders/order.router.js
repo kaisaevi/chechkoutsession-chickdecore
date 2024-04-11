@@ -1,7 +1,7 @@
-const express = require("express");
-const { fetchOrders } = require("./order.controllers");
-const router = express.Router();
+// const express = require("express");
+// const { fetchOrders } = require("./order.controllers");
+// const router = express.Router();
 
-router.get("/fetchorders", fetchOrders);
+// router.get("/fetchorders", fetchOrders);
 
-module.exports = router;
+// module.exports = router;

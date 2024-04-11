@@ -27,6 +27,7 @@ interface ICartContext {
   addToCart: (product: Product) => void;
   removeItemFromCart: (productId: string) => void;
   removeProductFromCart: (productId: string) => void;
+  clearCart: () => void;
 }
 
 const initialValues = {
@@ -34,6 +35,7 @@ const initialValues = {
   addToCart: () => {},
   removeItemFromCart: () => {},
   removeProductFromCart: () => {},
+  clearCart: () => {},
 };
 
 const CartContext = createContext<ICartContext>(initialValues);
@@ -85,9 +87,19 @@ const CartProvider = ({ children }: PropsWithChildren) => {
     setCart(updatedCart);
   };
 
+  const clearCart = () => {
+    setCart([]);
+  };
+
   return (
     <CartContext.Provider
-      value={{ cart, addToCart, removeItemFromCart, removeProductFromCart }}
+      value={{
+        cart,
+        addToCart,
+        removeItemFromCart,
+        removeProductFromCart,
+        clearCart,
+      }}
     >
       {children}
     </CartContext.Provider>

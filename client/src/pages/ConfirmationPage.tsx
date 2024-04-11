@@ -1,13 +1,15 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
+import { useCart } from "../context/CartContext";
 
 const ConfirmationPage = () => {
   const [verified, setVerified] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const { clearCart } = useCart();
 
   useEffect(() => {
     const verifySession = async () => {
-      console.log("hejhej");
       try {
         console.log("Startar verifiering...");
         let sessionId;
@@ -30,6 +32,7 @@ const ConfirmationPage = () => {
         if (response.data && response.data.verified) {
           console.log("Betalningen är verifierad!");
           setVerified(true);
+          clearCart();
         } else {
           console.log("Betalningen är inte verifierad.");
         }
@@ -45,15 +48,28 @@ const ConfirmationPage = () => {
     }
   }, [verified]);
 
+  useEffect(() => {
+    if (verified) {
+      localStorage.removeItem("sessionId");
+    }
+  }, [verified]);
+
   return (
-    <div>
-      <h3>
-        {isLoading
-          ? "Loading..."
-          : verified
-          ? "Tack för ditt köp!"
-          : "Betalningen är inte verifierad."}
-      </h3>
+    <div className="flex items-center justify-center h-screen">
+      <div className="text-center">
+        <h3 className="mb-4">
+          {isLoading
+            ? "Loading..."
+            : verified
+            ? "Thank you for your purchase!"
+            : "Payment is not verified."}
+        </h3>
+        <NavLink to={"/"}>
+          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            Take me to homepage
+          </button>
+        </NavLink>
+      </div>
     </div>
   );
 };

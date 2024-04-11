@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import ProductCard from "./ProductCard";
 import { Product } from "../context/CartContext";
-import Cart from "./Cart";
 
 const Products = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -29,7 +28,6 @@ const Products = () => {
             <ProductCard product={product} key={product.id} />
           ))}
       </div>
-      <Cart />
     </section>
   );
 };
