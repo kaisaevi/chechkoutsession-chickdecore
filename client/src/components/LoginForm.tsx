@@ -5,6 +5,7 @@ const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState<string | null>(null);
+  const [showLoginForm, setShowLoginForm] = useState(false);
 
   const logIn = async () => {
     try {
@@ -18,15 +19,15 @@ const LoginForm = () => {
           headers: {
             "Content-Type": "application/json",
           },
+          withCredentials: true,
         }
       );
 
       console.log("Server response:", response.data);
 
       if (response.status === 200) {
-        // Om inloggningen lyckades, spara användaruppgifterna
-        console.log("hejhej");
         setUser(response.data);
+        setShowLoginForm(false);
       } else {
         setUser(null);
       }
@@ -58,24 +59,35 @@ const LoginForm = () => {
 
   return (
     <div>
-      <input
-        type="email"
-        placeholder="E-postadress"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button className="bg-red" onClick={logIn}>
-        Logga in
-      </button>
-      <button className="bg-blue" onClick={logOut}>
-        Logga ut
-      </button>
+      {!user && (
+        <button className="bg-red" onClick={() => setShowLoginForm(true)}>
+          Logga in
+        </button>
+      )}
+      {user && (
+        <button className="bg-blue" onClick={logOut}>
+          Logga ut
+        </button>
+      )}
+      {showLoginForm && (
+        <div>
+          <input
+            type="email"
+            placeholder="E-postadress"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <button className="bg-green" onClick={logIn}>
+            Logga in
+          </button>
+        </div>
+      )}
       <div>
         <h1>{user ? "Inloggad som " + user : "Utloggad"}</h1>
       </div>

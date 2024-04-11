@@ -6,7 +6,6 @@ const fetchProducts = async (req, res) => {
     const products = await stripe.products.list({
       expand: ["data.default_price"],
     });
-    console.log("products: ", products.data);
     res.status(200).json(products);
   } catch (error) {
     console.error("Error fetching products:", error);

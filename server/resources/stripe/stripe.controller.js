@@ -1,4 +1,5 @@
 const { initStripe } = require("../../services/stripe.service");
+const fs = require("fs").promises;
 
 const createCheckoutSession = async (req, res) => {
   try {
@@ -17,7 +18,7 @@ const createCheckoutSession = async (req, res) => {
       cancel_url: "http://localhost:5173/cancel",
     });
 
-    res.status(200).json({ url: session.url });
+    res.status(200).json({ url: session.url, sessionId: session.id });
   } catch (error) {
     console.error("Error creating checkout session:", error);
     res.status(500).json({ error: "Failed to create checkout session" });
@@ -29,27 +30,23 @@ const verifySession = async (req, res) => {
   //session.user.id??
   const sessionId = req.body.sessionId;
 
-  const session = await stripe.session.retrieve(sessionId);
+  const session = await stripe.checkout.sessions.retrieve(sessionId);
 
   if (session.payment_status === "paid") {
     const lineItems = await stripe.checkout.sessions.listLineItems(sessionId);
-    console.log(lineItems);
 
     const order = {
       orderNumber: Math.floor(Math.random() * 10000000),
       customerName: session.customer_details.name,
-      products: "",
+      products: lineItems.data,
       total: session.amount_total,
       date: new Date(),
     };
-    const orders = JSON.parse(await fs.readFile("../../data/orders.json"));
+    const orders = JSON.parse(await fs.readFile("./data/orders.json"));
     orders.push(order);
-    await fs.writeFile(
-      "../../data/orders.json",
-      JSOn.stringify(orders, null, 4)
-    );
+    await fs.writeFile("./data/orders.json", JSON.stringify(orders, null, 4));
   }
-  console.log(session);
+
   res.status(200).json({ verified: true });
 };
 

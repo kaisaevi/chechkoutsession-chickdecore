@@ -40,5 +40,17 @@
     "email": "123@hotmail.com",
     "password": "$2b$10$pkWJbsS7oJl8DPt8UU9hO.JvOrvDeX7.lnfXh2rWkkAwufk3hmk4i",
     "stripeCustomerId": "cus_PtrRDMIbbmRi5g"
+  },
+  {
+    "name": "Katri",
+    "email": "kaisae@gmail.com",
+    "password": "$2b$10$Y0ws3dSmbCWApVgMlprTZeOQa3LDq/GT98onri4W0fuaWalpcExLW",
+    "stripeCustomerId": "cus_Pu7Dm7PqnK0FDM"
+  },
+  {
+    "name": "Maria",
+    "email": "maria@hotmail.com",
+    "password": "$2b$10$J1gcv7yf4Em86OoFs63ji.LNq8wCpX.6YwoI.vFLmQALYOvzjUoQi",
+    "stripeCustomerId": "cus_PuBjLYzWdQYx44"
   }
 ]

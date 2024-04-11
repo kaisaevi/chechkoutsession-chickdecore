@@ -1,9 +1,12 @@
-import { createBrowserRouter } from "react-router-dom";
+import { Navigate, createBrowserRouter } from "react-router-dom";
 import ErrorPage from "./pages/ErrorPage";
 import Layout from "./pages/Layout";
 import HomePage from "./pages/HomePage";
 import ConfirmationPage from "./pages/ConfirmationPage";
 import CancelPage from "./pages/CancelPage";
+import ShoppingPage from "./pages/ShoppingPage";
+
+const isAuthenticated = () => {};
 
 export const router = createBrowserRouter([
   {
