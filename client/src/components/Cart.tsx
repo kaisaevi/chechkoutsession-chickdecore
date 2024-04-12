@@ -1,6 +1,7 @@
 import { useCart } from "../context/CartContext";
 import { TiDelete } from "react-icons/ti";
 import { IoIosAddCircle } from "react-icons/io";
+import { IoMdRemoveCircle } from "react-icons/io";
 import Payment from "./Payment";
 import { useUser } from "../context/UserContext";
 
@@ -10,6 +11,7 @@ const Cart = () => {
   const { addToCart } = useCart();
   const { removeProductFromCart } = useCart();
   const { isLoggedIn } = useUser();
+  const [showCart, setShowCart] = useState(false);
 
   const calculateTotalPrice = () => {
     let totalPrice = 0;
@@ -24,8 +26,14 @@ const Cart = () => {
   };
 
   return (
-    <div className="fixed right-0 top-0 bg-blue-100 h-screen w-40">
-      <h1 className="text-white font-bold text-2xl">Cart</h1>
+    <div className="fixed right-0 top-0 bg-blue-100 h-screen w-40 bg-dark-blue overflow-y-auto">
+      <button
+        className="text-white text-sm absolute top-0 right-0 p-2"
+        onClick={() => setShowCart(false)}
+      >
+        Close
+      </button>
+      <h1 className="text-white font-bold text-2xl text-center p-3">Cart</h1>
       <ul>
         {cart.map((item, index) => {
           const price =
@@ -35,28 +43,32 @@ const Cart = () => {
             currency: "SEK",
           });
           return (
-            <li key={index} className="text-3xl font-bold border">
-              <div className="flex text-sm flex-col">
-                {item.product.name} x {item.quantity} Price {formattedPrice}{" "}
-                <div>
+            <li
+              key={index}
+              className="text-3xl font-bold border border-medium-dark-blue p-4 mx-auto"
+            >
+              <div className="flex text-sm flex-col text-blue">
+                {item.product.name} x {item.quantity}{" "}
+                <div className="mt-2">Price {formattedPrice} </div>
+                <div className="p-5">
                   <img src={item.product.images} alt={item.product.name} />
                 </div>
-                <div className="flex">
+                <div className="flex mx-auto">
                   <IoIosAddCircle
-                    className="w-7"
+                    className="w-7 h-5 m-2 text-light-blue"
                     onClick={() => addToCart(item.product)}
                   />
-                  <TiDelete
-                    className="w-10"
+                  <IoMdRemoveCircle
+                    className="w-7 m-2 h-5 text-light-blue"
                     onClick={() => removeProductFromCart(item.product.id)}
                   />
                 </div>
               </div>
               <button
-                className="text-sm border"
+                className="text-sm border text-blue p-2 rounded-md"
                 onClick={() => removeItemFromCart(item.product.id)}
               >
-                Delete
+                Delete Item
               </button>
             </li>
           );

@@ -18,17 +18,14 @@ const Products = () => {
   }, []);
 
   return (
-    <section className="flex flex-wrap justify-center items-center gap-20 p-10 pr-96">
-      <div className="">
-        <h2 className="text-3xl font-semibold text-gray">Products</h2>
-      </div>
-      <div className="">
+    <div className="">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         {products &&
           products.map((product: Product) => (
             <ProductCard product={product} key={product.id} />
           ))}
       </div>
-    </section>
+    </div>
   );
 };
 

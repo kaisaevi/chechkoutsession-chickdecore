@@ -11,7 +11,7 @@ const Layout = () => {
         <UserProvider>
           <CartProvider>
             {/* <Header /> */}
-            <main className="bg-beige flex-grow">
+            <main className="bg-blue flex-grow">
               <Outlet />
             </main>
           </CartProvider>

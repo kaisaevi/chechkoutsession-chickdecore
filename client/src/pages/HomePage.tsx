@@ -21,18 +21,23 @@ const HomePage = () => {
         className="min-h-screen bg-cover bg-center"
         style={{ backgroundImage: `url(${background})` }}
       >
-        <LoginForm />
-        <RegisterForm />
+        <div className="flex">
+          <LoginForm />
+          <RegisterForm />
+        </div>
         <button
           className="absolute top-5 right-5 text-white"
           onClick={toggleCart}
         >
-          <BsCart4 />
+          <BsCart4 className="hover:text-blue" />
           <span>{cart.length}</span>
         </button>
         {showCart && <Cart />}
 
-        <h1 className="text-9xl text-center flex justify-center items-center h-screen text-white">
+        <h1
+          className="text-9xl text-center flex justify-center items-center h-screen text-white"
+          style={{ color: "white" }}
+        >
           ChicDecor
         </h1>
       </div>

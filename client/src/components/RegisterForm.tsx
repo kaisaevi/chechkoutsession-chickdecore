@@ -5,7 +5,7 @@ const RegisterForm = () => {
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [showRegister, setShowRegister] = useState(false); // State för att visa/dölja popup
+  const [showRegisterForm, setShowRegisterForm] = useState(false);
 
   const register = async () => {
     try {
@@ -28,52 +28,65 @@ const RegisterForm = () => {
     }
   };
 
+  const handleRegisterButtonClick = () => {
+    setShowRegisterForm(true);
+  };
+
+  const handleCancelClick = () => {
+    setShowRegisterForm(false);
+    // Reset form fields
+    setName("");
+    setEmail("");
+    setPassword("");
+  };
+
   return (
     <div>
-      {/* Register knapp */}
-      <button className="bg-red" onClick={() => setShowRegister(true)}>
-        Register
-      </button>
+      {!showRegisterForm && (
+        <button
+          className="m-4 text-white text-lg hover:text-blue"
+          onClick={handleRegisterButtonClick}
+        >
+          REGISTER
+        </button>
+      )}
 
-      {/* Popup för registrering */}
-      {showRegister && (
-        <div className="fixed inset-0 flex justify-center items-center bg-gray-500 bg-opacity-75">
-          <div className="bg-white p-4 rounded-md">
-            <input
-              type="name"
-              placeholder="Name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="mb-2 block w-full border border-gray-300 rounded-md px-3 py-2"
-            />
-            <input
-              type="email"
-              placeholder="E-postadress"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="mb-2 block w-full border border-gray-300 rounded-md px-3 py-2"
-            />
-            <input
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="mb-2 block w-full border border-gray-300 rounded-md px-3 py-2"
-            />
-            <div className="flex justify-between">
-              <button
-                className="bg-red text-white px-4 py-2 rounded-md"
-                onClick={register}
-              >
-                Register
-              </button>
-              <button
-                className="bg-gray-300 px-4 py-2 rounded-md"
-                onClick={() => setShowRegister(false)}
-              >
-                Cancel
-              </button>
-            </div>
+      {showRegisterForm && (
+        <div className="">
+          <input
+            type="name"
+            placeholder="Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="mb-2 block border rounded-md px-3 py-2"
+          />
+          <input
+            type="email"
+            placeholder="E-mail address"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="mb-2 block border rounded-md px-3 py-2"
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="mb-2 block border rounded-md px-3 py-2"
+          />
+          <div className="">
+            <button
+              className="text-blue px-4 py-2 rounded-md"
+              onClick={register}
+            >
+              REGISTER
+            </button>
+            <button
+              className="text-red px-4 py-2 rounded-md"
+              onClick={handleCancelClick}
+            >
+              CANCEL
+            </button>
           </div>
         </div>
       )}
