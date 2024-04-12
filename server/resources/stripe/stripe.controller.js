@@ -8,6 +8,7 @@ const createCheckoutSession = async (req, res) => {
 
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
+      customer: req.session.user.stripeCustomerId,
       line_items: cartItems.map((item) => {
         return {
           price: item.product,

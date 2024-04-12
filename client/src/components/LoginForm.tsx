@@ -1,28 +1,31 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useUser } from "../context/UserContext";
 
 const LoginForm = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
   const { login, logout, isLoggedIn, user } = useUser();
 
   const handleLogin = async () => {
     await login(email, password);
-    setEmail("");
-    setPassword("");
-    console.log(user);
+    setEmail;
+    setPassword;
   };
 
   const handleLogout = () => {
     logout();
   };
 
+  useEffect(() => {
+    console.log(user);
+  }, [user]);
+
   return (
     <div>
       {isLoggedIn ? (
         <div>
           <p>Du är inloggad som: {user?.email}</p>
-          <button onClick={handleLogout}>Logga ut</button>
+          <button onClick={handleLogout}>Logout</button>
         </div>
       ) : (
         <div>
@@ -38,7 +41,7 @@ const LoginForm = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <button onClick={handleLogin}>Logga in</button>
+          <button onClick={handleLogin}>Login</button>
         </div>
       )}
     </div>

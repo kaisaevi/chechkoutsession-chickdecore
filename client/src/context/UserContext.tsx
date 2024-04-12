@@ -30,10 +30,7 @@ export const UserProvider = ({ children }: PropsWithChildren) => {
     try {
       const response = await axios.post(
         "http://localhost:3000/api/auth/login",
-        {
-          email: email,
-          password: password,
-        },
+        JSON.stringify({ email: email, password: password }),
         {
           headers: {
             "Content-Type": "application/json",
@@ -45,19 +42,32 @@ export const UserProvider = ({ children }: PropsWithChildren) => {
       if (response.status === 200) {
         setUser(response.data);
         setIsLoggedIn(true);
-        localStorage.setItem("user", JSON.stringify(response.data));
       } else {
-        console.error("Failed to log in:", response);
+        alert(
+          "You have entered an incorrect username or password. Please try again!"
+        );
+        setUser(null);
+        setIsLoggedIn(false);
       }
     } catch (error) {
       console.error("Error logging in:", error);
     }
   };
 
-  const logout = () => {
-    setUser(null);
-    setIsLoggedIn(false);
-    localStorage.removeItem("user");
+  const logout = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/api/auth/logout"
+      );
+      if (response.status === 200) {
+        setUser(null);
+        setIsLoggedIn(false);
+      } else {
+        console.error("Failed to log out:", response);
+      }
+    } catch (error) {
+      console.error("Error logging out:", error);
+    }
   };
 
   return (

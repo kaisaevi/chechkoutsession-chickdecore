@@ -52,5 +52,11 @@
     "email": "maria@hotmail.com",
     "password": "$2b$10$J1gcv7yf4Em86OoFs63ji.LNq8wCpX.6YwoI.vFLmQALYOvzjUoQi",
     "stripeCustomerId": "cus_PuBjLYzWdQYx44"
+  },
+  {
+    "name": "Poro",
+    "email": "123@gmail.com",
+    "password": "$2b$10$NrBJBtx.8l2jmWiHoo3GGeMdAnSkSCZ6JUzRFOoXi4FrYF/MaGu0W",
+    "stripeCustomerId": "cus_PuSp8teVV0FnjB"
   }
 ]
