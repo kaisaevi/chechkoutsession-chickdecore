@@ -2,12 +2,14 @@ import { useCart } from "../context/CartContext";
 import { TiDelete } from "react-icons/ti";
 import { IoIosAddCircle } from "react-icons/io";
 import Payment from "./Payment";
+import { useUser } from "../context/UserContext";
 
 const Cart = () => {
   const { cart } = useCart();
   const { removeItemFromCart } = useCart();
   const { addToCart } = useCart();
   const { removeProductFromCart } = useCart();
+  const { isLoggedIn } = useUser();
 
   const calculateTotalPrice = () => {
     let totalPrice = 0;
@@ -61,7 +63,8 @@ const Cart = () => {
         })}
       </ul>
       <p className="text-xl font-bold">Total: {calculateTotalPrice()}</p>
-      <Payment />
+
+      {isLoggedIn ? <Payment /> : ""}
     </div>
   );
 };
