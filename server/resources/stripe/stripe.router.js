@@ -3,6 +3,6 @@ const { createCheckoutSession, verifySession } = require("./stripe.controller");
 const router = express.Router();
 
 router.post("/create-checkout-session", createCheckoutSession);
-router.post("/verify-session", verifySession);
+router.post("/checkout-success", verifySession);
 
 module.exports = router;

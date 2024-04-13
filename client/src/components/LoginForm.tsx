@@ -1,86 +1,85 @@
-import axios from "axios";
 import { useState } from "react";
+import { useUser } from "../context/UserContext";
 
 const LoginForm = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [user, setUser] = useState<string | null>(null);
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const { login, logout, isLoggedIn } = useUser();
+  const [showLoginForm, setShowLoginForm] = useState(false);
 
-  const logIn = async () => {
-    try {
-      const response = await axios.post(
-        "http://localhost:3000/api/auth/login",
-        {
-          email: email,
-          password: password,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+  const handleLogin = async () => {
+    await login(email, password);
+    setEmail("");
+    setPassword("");
+  };
 
-      console.log("Server response:", response.data);
+  const handleLogout = () => {
+    logout();
+  };
 
-      if (response.status === 200) {
-        // Om inloggningen lyckades, spara användaruppgifterna
-        console.log("hejhej");
-        setUser(response.data);
-      } else {
-        setUser(null);
-      }
-    } catch (error) {
-      console.error("Error logging in:", error);
-      setUser(null);
+  const handleShowLoginFormClick = () => {
+    if (!isLoggedIn) {
+      setShowLoginForm(!showLoginForm);
+    } else {
+      logout();
     }
   };
 
-  const logOut = async () => {
-    try {
-      const response = await axios.post(
-        "http://localhost:3000/api/auth/logout",
-        {},
-        {
-          withCredentials: true,
-        }
-      );
-
-      if (response.status === 200) {
-        setUser(null);
-      } else {
-        console.error("Failed to log out:", response);
-      }
-    } catch (error) {
-      console.error("Error logging out:", error);
-    }
+  const handleHideLoginFormClick = () => {
+    setShowLoginForm(false);
+    setEmail("");
+    setPassword("");
   };
 
   return (
     <div>
-      <input
-        type="email"
-        placeholder="E-postadress"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button className="bg-red" onClick={logIn}>
-        Logga in
-      </button>
-      <button className="bg-blue" onClick={logOut}>
-        Logga ut
-      </button>
-      <div>
-        <h1>{user ? "Inloggad som " + user : "Utloggad"}</h1>
-      </div>
+      {!isLoggedIn && (
+        <>
+          {showLoginForm && (
+            <div className="flex flex-col">
+              <input
+                className="py-2 px-4 mb-5 mx-3 mt-5 w-80"
+                type="email"
+                placeholder="E-mail"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <input
+                className="py-2 px-4 mb-4 w-80 mx-3"
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <div className="flex">
+                <button className="ml-20 text-blue" onClick={handleLogin}>
+                  LOGIN
+                </button>
+                <button
+                  className="m-3 text-red"
+                  onClick={handleHideLoginFormClick}
+                >
+                  CANCEL
+                </button>{" "}
+              </div>
+            </div>
+          )}
+          {!showLoginForm && (
+            <button
+              className="text-white m-4 text-lg hover:text-blue"
+              onClick={handleShowLoginFormClick}
+            >
+              {showLoginForm ? "" : "LOGIN"}
+            </button>
+          )}
+        </>
+      )}
+      {isLoggedIn && (
+        <div className="text-white m-4 text-lg hover:text-blue">
+          <button onClick={handleLogout}>LOGOUT</button>
+        </div>
+      )}
     </div>
   );
 };
-
 export default LoginForm;

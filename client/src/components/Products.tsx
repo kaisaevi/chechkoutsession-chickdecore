@@ -1,51 +1,32 @@
-// // import { useEffect, useState } from "react";
-// // import AddToCartButton from "./AddToCartButton";
-// // import axios from "axios";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import ProductCard from "./ProductCard";
+import { Product } from "../context/CartContext";
 
-// // const Products = () => {
-// //   interface Product {
-// //     id: string;
-// //     name: string;
-// //     description: string;
-// //     price: string;
-// //     image: string;
-// //   }
+const Products = () => {
+  const [products, setProducts] = useState<Product[]>([]);
 
-//   // const [products, setProducts] = useState<Product[]>([]);
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const { data } = await axios.get(
+        "http://localhost:3000/api/products/fetchproducts"
+      );
+      setProducts(data.data);
+      console.log(data.data);
+    };
+    fetchProducts();
+  }, []);
 
-//   // useEffect(() => {
-//   //   const fetchProducts = async () => {
-//   //     try {
-//   //       const response = await axios.get(
-//   //         "http://localhost:3000/api/products/fetchproducts",
-//   //         { timeout: 10000 }
-//   //       );
-//   //       setProducts(response.data);
-//   //       console.log(products);
-//   //     } catch (error) {
-//   //       console.error("Error fetching products:", error);
-//   //     }
-//   //   };
-//   //   fetchProducts();
-//   // }, []);
+  return (
+    <div className="">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        {products &&
+          products.map((product: Product) => (
+            <ProductCard product={product} key={product.id} />
+          ))}
+      </div>
+    </div>
+  );
+};
 
-//   return (
-//     <>
-//       <div>
-//         <ul>
-//           {/* {products.map((product) => (
-//             <li key={product.id}>
-//               <img src={product.image} alt={product.name} />
-//               <h4>{product.name}</h4>
-//               <p>{product.description}</p>
-//               <p>Price: {product.price}</p>
-//             </li>
-//           ))} */}
-//         </ul>
-//         <AddToCartButton />
-//       </div>
-//     </>
-//   );
-// };
-
-// export default Products;
+export default Products;
