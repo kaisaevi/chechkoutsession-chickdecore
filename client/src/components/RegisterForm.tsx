@@ -52,7 +52,7 @@ const RegisterForm = () => {
       )}
 
       {showRegisterForm && (
-        <div className="">
+        <div className="mt-5">
           <input
             type="name"
             placeholder="Name"

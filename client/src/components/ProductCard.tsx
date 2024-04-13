@@ -12,7 +12,11 @@ const ProductCard = ({ product }) => {
           currency: "SEK",
         })}
       </p>
-      <img className="w-60 h-60 m-4" src={product.images} alt={product.name} />
+      <img
+        className="w-100 h-100 m-4"
+        src={product.images}
+        alt={product.name}
+      />
       <button
         onClick={() => addToCart(product)}
         className="border-2 drop-shadow-2xl p-2 rounded-md text-dark-blue mt-3"

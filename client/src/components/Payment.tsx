@@ -34,8 +34,11 @@ const Payment = () => {
     }
   };
   return (
-    <div>
-      <button className="bg-slate-600 border" onClick={handlePayment}>
+    <div className="flex">
+      <button
+        className="bg-medium-dark-blue text-white p-2 rounded-md border mb-4 mx-auto"
+        onClick={handlePayment}
+      >
         Purchase Cart
       </button>
     </div>

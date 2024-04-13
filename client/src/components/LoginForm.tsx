@@ -36,30 +36,32 @@ const LoginForm = () => {
       {!isLoggedIn && (
         <>
           {showLoginForm && (
-            <div>
+            <div className="flex flex-col">
               <input
-                className="py-2 px-4 mb-4 leading-tight mx-3"
+                className="py-2 px-4 mb-5 mx-3 mt-5 w-80"
                 type="email"
                 placeholder="E-mail"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
               <input
-                className="py-2 px-4 mb-4 leading-tight"
+                className="py-2 px-4 mb-4 w-80 mx-3"
                 type="password"
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <button className="ml-3 text-blue" onClick={handleLogin}>
-                LOGIN
-              </button>
-              <button
-                className="m-3 text-red"
-                onClick={handleHideLoginFormClick}
-              >
-                CANCEL
-              </button>{" "}
+              <div className="flex">
+                <button className="ml-20 text-blue" onClick={handleLogin}>
+                  LOGIN
+                </button>
+                <button
+                  className="m-3 text-red"
+                  onClick={handleHideLoginFormClick}
+                >
+                  CANCEL
+                </button>{" "}
+              </div>
             </div>
           )}
           {!showLoginForm && (
@@ -72,8 +74,8 @@ const LoginForm = () => {
           )}
         </>
       )}
-      {!showLoginForm && isLoggedIn && (
-        <div>
+      {isLoggedIn && (
+        <div className="text-white m-4 text-lg hover:text-blue">
           <button onClick={handleLogout}>LOGOUT</button>
         </div>
       )}

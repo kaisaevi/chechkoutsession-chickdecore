@@ -1,17 +1,16 @@
 import { useCart } from "../context/CartContext";
-import { TiDelete } from "react-icons/ti";
 import { IoIosAddCircle } from "react-icons/io";
 import { IoMdRemoveCircle } from "react-icons/io";
 import Payment from "./Payment";
 import { useUser } from "../context/UserContext";
+import { TiDelete } from "react-icons/ti";
 
-const Cart = () => {
+const Cart = ({ closeCart }) => {
   const { cart } = useCart();
   const { removeItemFromCart } = useCart();
   const { addToCart } = useCart();
   const { removeProductFromCart } = useCart();
   const { isLoggedIn } = useUser();
-  const [showCart, setShowCart] = useState(false);
 
   const calculateTotalPrice = () => {
     let totalPrice = 0;
@@ -27,11 +26,8 @@ const Cart = () => {
 
   return (
     <div className="fixed right-0 top-0 bg-blue-100 h-screen w-40 bg-dark-blue overflow-y-auto">
-      <button
-        className="text-white text-sm absolute top-0 right-0 p-2"
-        onClick={() => setShowCart(false)}
-      >
-        Close
+      <button onClick={closeCart} className="text-white m-3">
+        <TiDelete />
       </button>
       <h1 className="text-white font-bold text-2xl text-center p-3">Cart</h1>
       <ul>
@@ -49,7 +45,7 @@ const Cart = () => {
             >
               <div className="flex text-sm flex-col text-blue">
                 {item.product.name} x {item.quantity}{" "}
-                <div className="mt-2">Price {formattedPrice} </div>
+                <div className="">Price {formattedPrice} </div>
                 <div className="p-5">
                   <img src={item.product.images} alt={item.product.name} />
                 </div>
@@ -74,7 +70,9 @@ const Cart = () => {
           );
         })}
       </ul>
-      <p className="text-xl font-bold">Total: {calculateTotalPrice()}</p>
+      <p className="text-xl font-bold ml-4 text-white mb-5">
+        Total: {calculateTotalPrice()}
+      </p>
 
       {isLoggedIn ? <Payment /> : ""}
     </div>
