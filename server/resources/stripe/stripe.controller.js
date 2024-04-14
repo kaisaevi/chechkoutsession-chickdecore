@@ -13,6 +13,7 @@ const createCheckoutSession = async (req, res) => {
         return {
           price: item.product,
           quantity: item.quantity,
+          discounts: [{ coupon: "{{iMLY2Beo}}" }],
         };
       }),
       success_url: "http://localhost:5173/confirmation",
@@ -52,4 +53,10 @@ const verifySession = async (req, res) => {
   res.status(200).json({ verified: true });
 };
 
-module.exports = { createCheckoutSession, verifySession };
+const getActiveCouponCodes = async (req, res) => {
+  const stripe = initStripe();
+  const promotionCodes = await stripe.coupons.list();
+  res.status(200).json({ success: true, promotionCodes });
+};
+
+module.exports = { createCheckoutSession, verifySession, getActiveCouponCodes };

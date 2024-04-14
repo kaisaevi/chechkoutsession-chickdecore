@@ -4,6 +4,8 @@ import { IoMdRemoveCircle } from "react-icons/io";
 import Payment from "./Payment";
 import { useUser } from "../context/UserContext";
 import { TiDelete } from "react-icons/ti";
+import { useState } from "react";
+import axios from "axios";
 
 const Cart = ({ closeCart }) => {
   const { cart } = useCart();
@@ -11,6 +13,8 @@ const Cart = ({ closeCart }) => {
   const { addToCart } = useCart();
   const { removeProductFromCart } = useCart();
   const { isLoggedIn } = useUser();
+  const [isVerified, setIsVerified] = useState<Boolean>(false);
+  const [promotionCode, setPromotionCode] = useState("");
 
   const calculateTotalPrice = () => {
     let totalPrice = 0;
@@ -22,6 +26,34 @@ const Cart = ({ closeCart }) => {
       style: "currency",
       currency: "SEK",
     });
+  };
+
+  const handlePromotionCodeChange = (e) => {
+    setPromotionCode(e.target.value);
+  };
+
+  const handlePromotionCodeVerification = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/api/payments/get-active-coupons",
+        {
+          promotionCode: promotionCode,
+        }
+      );
+      const promotionCodes = response.data.promotionCodes.data;
+
+      const isValid = promotionCodes.find(
+        (code) => code.name === promotionCode.toUpperCase()
+      );
+
+      if (isValid) {
+        setIsVerified(true);
+      } else {
+        setIsVerified(false);
+      }
+    } catch (error) {
+      console.error("Error verifying promotion code:", error);
+    }
   };
 
   return (
@@ -70,10 +102,17 @@ const Cart = ({ closeCart }) => {
           );
         })}
       </ul>
+      <label htmlFor="promotionCode">Promotion Code?</label>
+      <input
+        type="text"
+        id="promotionCode"
+        value={promotionCode}
+        onChange={handlePromotionCodeChange}
+      />
+      <button onClick={handleApplyDiscount}>Apply</button>
       <p className="text-xl font-bold ml-4 text-white mb-5">
         Total: {calculateTotalPrice()}
       </p>
-
       {isLoggedIn ? <Payment /> : ""}
     </div>
   );

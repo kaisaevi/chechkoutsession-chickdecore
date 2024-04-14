@@ -1,1 +1,8 @@
-[]
+[
+  {
+    "name": "pappara",
+    "email": "pappara@hotmail.com",
+    "password": "$2b$10$dNb1.138A3HPGwoo6UGa1.8mYgBON7RZ8ShuO157SfwGxf4QLMiwu",
+    "stripeCustomerId": "cus_PvHjZVVqM5cT8V"
+  }
+]

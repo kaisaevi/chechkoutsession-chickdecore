@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useCart } from "../context/CartContext";
+import { useState } from "react";
 
 const Payment = () => {
   const { cart } = useCart();
@@ -33,6 +34,7 @@ const Payment = () => {
       console.error("Error handling payment:", error);
     }
   };
+
   return (
     <div className="flex">
       <button
