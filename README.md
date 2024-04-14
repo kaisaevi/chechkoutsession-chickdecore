@@ -48,10 +48,36 @@ To get started, follow these steps:
    npm run dev
    ```
 
-4. Create a .env file in the server root and add the following:
+4. Open a new terminal
+
+5. Navigate to servermap:
 
    ```bash
-   STRIPE_KEY = XXXXXXXXXXXX
+   cd server
    ```
+
+6. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+7. Start the server with Nodemon:
+
+   ```bash
+   nodemon server
+   ```
+
+8. Create a .env file in the server root and add the following:
+
+```bash
+ STRIPE_KEY = XXXXXXXXXXXX
+```
+
+9. Browse to: http://localhost:5173/
+
+## Usage
+
+Explore our wide range of products and add your favorites to the shopping cart. To complete your purchase, simply register an account and log in. Once logged in, you can proceed to checkout and finalize your order. Happy shopping!
 
 # Checkout Session - ChickDecor Furniture Store
