@@ -1,1 +1,8 @@
-[]
+[
+  {
+    "name": "anna",
+    "email": "anna@hotmail.com",
+    "password": "$2b$10$k3LusaPzdtThCXpHyV.EoeKoHdR2/bEd5jzmWiqzsjy4mkUBhZz7y",
+    "stripeCustomerId": "cus_PvOBVswdBU045c"
+  }
+]
