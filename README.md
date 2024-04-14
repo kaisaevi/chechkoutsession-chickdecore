@@ -4,7 +4,7 @@ In this project, we've developed an e-commerce platform enabling user registrati
 
 ## Requirements
 
-Requirements for pass:
+**Requirements for pass:**
 
 1.  Products should be listed on a page.
 2.  Products displayed and purchased should be fetched from Stripe.
@@ -18,7 +18,7 @@ Requirements for pass:
 
 Fulfilled requirements for pass: 1-9
 
-Requirements for pass with distinction:
+**Requirements for pass with distinction:**
 
 1.  All requirements for pass are fulfilled.
 2.  It should be possible to enter a discount code to receive a discount on the purchase (This is done through Stripe).
@@ -53,7 +53,5 @@ To get started, follow these steps:
    ```bash
    STRIPE_KEY = XXXXXXXXXXXX
    ```
-
-   ## Usage
 
 # Checkout Session - ChickDecor Furniture Store
